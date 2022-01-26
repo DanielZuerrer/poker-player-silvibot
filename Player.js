@@ -10,27 +10,6 @@ class Player {
 
     console.log(gameState)
 
-    if (gameState.players[gameState.in_action].bet === 0){
-      fold(bet)
-      return
-    }
-
-    if (gameState.players[gameState.in_action].bet === gameState.small_blind * 2
-      && Math.max(...gameState.players.map(player => player.bet)) === gameState.small_blind * 2){
-        allIn(bet)
-        return
-    }
-
-    fold(bet)
-    return
-
-    // Bluff
-    if (true) { 
-      console.log("bluff")
-      allIn(bet)
-      return
-    }
-
     // All in if full house
     if(has_full_house(gameState)) {
       console.log("found full house")

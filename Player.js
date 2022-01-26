@@ -38,7 +38,7 @@ class Player {
     }
     
     // All in if one pair
-    if (hasOnePair) {
+    if (hasOnePair || hasOnePairWithDealCards) {
       allIn(bet)
       return
     }

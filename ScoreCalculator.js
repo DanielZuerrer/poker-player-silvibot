@@ -1,8 +1,14 @@
-const exctract_scores = (gameState) => {
+const exctract_scores = (gameState, onlyCommunity = false) => {
   const communityCards = gameState.community_cards;
   const playerCards = gameState.players[gameState.in_action].hole_cards;
 
-  const fullHand = [...communityCards, ...playerCards];
+  let fullHand = [...communityCards];
+
+  if (!onlyCommunity){
+    fullHand =[...fullHand, ...playerCards]
+  }
+
+console.log(fullHand)
 
   const ranks = fullHand.map((card) => card.rank);
 
@@ -30,8 +36,19 @@ const get_counts = (scores) => {
   return counts
 }
 
-const has_pair = (gameState) => {
-    const scores = exctract_scores(gameState);
+const has_uniqe_pair = (gameState) => {
+  const hasUniquePair = !has_pair(gameState, true)[0] && has_pair(gameState, false)[0];
+
+  if (hasUniquePair){
+    return [true, has_pair(gameState, false)[1]]
+  } else {
+    return [false, null]
+  }
+
+}
+
+const has_pair = (gameState, onlyCommunity) => {
+    const scores = exctract_scores(gameState, onlyCommunity);
 
     const counts = get_counts(scores)
 
@@ -142,3 +159,4 @@ exports.has_straight = has_straight;
 exports.has_full_house = has_full_house;
 exports.exctract_scores = exctract_scores;
 exports.calculate_score = calculate_score;
+exports.has_uniqe_pair = has_uniqe_pair;

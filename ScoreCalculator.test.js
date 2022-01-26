@@ -1,4 +1,4 @@
-const { has_pair, has_three_of_a_kind, has_four_of_a_kind, has_straight, has_full_house } = require('./ScoreCalculator.js');
+const { has_pair, has_uniqe_pair, has_three_of_a_kind, has_four_of_a_kind, has_straight, has_full_house  } = require('./ScoreCalculator.js');
 
 test('has pair', () => {
     const mock = {
@@ -362,4 +362,131 @@ test('four of a kind', () => {
     }
     expect(has_four_of_a_kind(mock)[0]).toBe(false)
     expect(has_four_of_a_kind(passing_mock)[0]).toBe(true)
+})
+
+test('has unique pair', () => {
+    const mock = {
+        "in_action": 1,
+        "players": [
+            {
+            },
+            {
+                "id": 1,
+                "name": "Bob",
+                "status": "active",
+                "version": "Default random player",
+                "stack": 1590,
+                "bet": 80,
+                "hole_cards": [
+                    {
+                        "rank": "7",
+                        "suit": "hearts"
+                    },
+                    {
+                        "rank": "3",
+                        "suit": "spades"
+                    }
+                ]
+            },
+            {
+            }
+        ],
+        "community_cards": [
+            {
+                "rank": "5",
+                "suit": "hearts"
+            },
+            {
+                "rank": "5",
+                "suit": "spades"
+            }
+        ]
+    }
+    const passing_mock = {
+        "in_action": 1,
+        "players": [
+            {
+            },
+            {
+                "id": 1,
+                "name": "Bob",
+                "status": "active",
+                "version": "Default random player",
+                "stack": 1590,
+                "bet": 80,
+                "hole_cards": [
+                    {
+                        "rank": "7",
+                        "suit": "hearts"
+                    },
+                    {
+                        "rank": "3",
+                        "suit": "spades"
+                    }
+                ]
+            },
+            {
+            }
+        ],
+        "community_cards": [
+            {
+                "rank": "7",
+                "suit": "hearts"
+            },
+            {
+                "rank": "6",
+                "suit": "clubs"
+            },
+            {
+                "rank": "5",
+                "suit": "diamond"
+            }
+        ]
+    }
+    const passing_mock_2 = {
+        "in_action": 1,
+        "players": [
+            {
+            },
+            {
+                "id": 1,
+                "name": "Bob",
+                "status": "active",
+                "version": "Default random player",
+                "stack": 1590,
+                "bet": 80,
+                "hole_cards": [
+                    {
+                        "rank": "7",
+                        "suit": "hearts"
+                    },
+                    {
+                        "rank": "7",
+                        "suit": "spades"
+                    }
+                ]
+            },
+            {
+            }
+        ],
+        "community_cards": [
+            {
+                "rank": "8",
+                "suit": "hearts"
+            },
+            {
+                "rank": "6",
+                "suit": "clubs"
+            },
+            {
+                "rank": "5",
+                "suit": "diamond"
+            }
+        ]
+    }
+    expect(has_uniqe_pair(mock)[0]).toBe(false)
+    expect(has_uniqe_pair(passing_mock)[0]).toBe(true)
+    expect(has_uniqe_pair(passing_mock)[1]).toBe(7)
+    expect(has_uniqe_pair(passing_mock_2)[0]).toBe(true)
+    expect(has_uniqe_pair(passing_mock_2)[1]).toBe(7)
 })

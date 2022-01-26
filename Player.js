@@ -1,4 +1,5 @@
 const { fold, check, raise, allIn } = require('./bet.js');
+const { has_pair, has_three_of_a_kind } = require('./ScoreCalculator.js');
 
 class Player {
   static get VERSION() {
@@ -28,11 +29,14 @@ class Player {
     const rank3 = playerCards.filter((card) => card.rank === "3")
     const rank2 = playerCards.filter((card) => card.rank === "2")
 
-    const hasOnePairWithDealCards = communityCardValues && playerCardValues.some(cardValue => communityCardValues.includes(cardValue))
-    const hasOnePair = playerCards[0].rank === playerCards[1].rank
+    // All in if 3 of a kind
+    if(has_three_of_a_kind(gameState)[0]) {
+      allIn(bet)
+      return
+    }
 
      // All in if one pair
-     if (hasOnePair || hasOnePairWithDealCards) {
+     if (has_pair()[0]) {
       allIn(bet)
       return
     }

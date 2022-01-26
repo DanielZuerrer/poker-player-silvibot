@@ -8,8 +8,57 @@ class Player {
 
   static betRequest(gameState, bet) {
 
+    const goodHands = [
+      ["A","A"],
+      ["A","K"],
+      ["A","Q"],
+      ["A","J"],
+      ["A","10"],
+      ["A","9"],
+      ["A","8"],
+      ["A","7"],
+      ["A","6"],
+      ["A","5"],
+      ["A","4"],
+      ["A","3"],
+      ["K","A"],
+      ["K","K"],
+      ["K","Q"],
+      ["K","J"],
+      ["K","10"],
+      ["K","9"],
+      ["K","8"],
+      ["Q","A"],
+      ["Q","K"],
+      ["Q","Q"],
+      ["Q","J"],
+      ["Q","10"]
+      ["J","J"],
+      ["10","10"],
+      ["9","9"],
+    ]
+
+
     const playerCards = gameState.players[gameState.in_action].hole_cards;
     const playerRanks = playerCards.map((card) => card.rank);
+
+    let isGood = false;
+    goodHands.forEach(straight => {
+      if (straight.every(c => playerRanks.includes(c))){
+        isGood = true;
+      }
+    });
+    if (isGood){
+      allIn(bet);
+      return;
+    }
+
+    fold(bet);
+    return;
+
+
+
+
     const playerValues = playerRanks.map(mapCardValues);
 
     if(Math.max(...playerValues) > 11) {

@@ -23,7 +23,15 @@ class Player {
 
     if (rankA.length) {
       bet(10000)
+      return
     }
+
+    if (playerCards[0].rank === playerCards[1].rank) {
+      bet(10000)
+      return
+    }
+
+    bet(0)
   }
 
   static showdown(gameState) {

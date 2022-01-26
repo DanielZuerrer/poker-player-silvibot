@@ -64,6 +64,10 @@ const has_pair = (gameState, onlyCommunity) => {
 }
 
 const is_highest_card = (gameState) => {
+
+  if(gameState.round === 0) {
+    return true
+  }
   const communityValues = exctract_scores(gameState, true);
   const playerCards = gameState.players[gameState.in_action].hole_cards;
   const playerRanks = playerCards.map((card) => card.rank);

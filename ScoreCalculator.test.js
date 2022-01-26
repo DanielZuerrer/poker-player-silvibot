@@ -505,6 +505,32 @@ test("is_highest_card", () => {
       },
     ],
   };
+  const mock2 = {
+    in_action: 1,
+    players: [
+      {},
+      {
+        id: 1,
+        name: "Bob",
+        status: "active",
+        version: "Default random player",
+        stack: 1590,
+        bet: 80,
+        hole_cards: [
+          {
+            rank: "7",
+            suit: "hearts",
+          },
+          {
+            rank: "3",
+            suit: "spades",
+          },
+        ],
+      },
+      {},
+    ],
+    community_cards: [],
+  };
   const passing_mock = {
     in_action: 1,
     players: [
@@ -545,6 +571,7 @@ test("is_highest_card", () => {
     ],
   };
   expect(is_highest_card(mock)).toBe(false);
+  expect(is_highest_card(mock2)).toBe(false);
   expect(is_highest_card(passing_mock)).toBe(true);
 });
 

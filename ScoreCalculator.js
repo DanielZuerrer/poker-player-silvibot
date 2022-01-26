@@ -66,6 +66,25 @@ const has_three_of_a_kind = (gameState) => {
     return [hasThreeOfAKind, threeOfAKindScore];
 }
 
+const has_four_of_a_kind = (gameState) => {
+  const scores = exctract_scores(gameState);
+
+  const counts = get_counts(scores)
+
+  let hasFourOfAKind = false;
+  let fourOfAKindScore = null;
+  
+  Object.keys(counts).forEach(score => {
+      if (counts[score] === 4) {
+        hasFourOfAKind = true;
+        fourOfAKindScore = parseInt(score);
+      }
+
+  });
+  return [hasFourOfAKind, fourOfAKindScore];
+}
+
+
 const has_straight = (gameState) => {
     const scores = exctract_scores(gameState);
 
@@ -80,6 +99,12 @@ const has_straight = (gameState) => {
       }
     });
     return hasStraight;
+}
+
+const has_full_house = (gameState) => {
+  const scores = exctract_scores(gameState);
+
+  return has_pair(gameState) && has_three_of_a_kind(gameState);
 }
 
 const calculate_score = (gameState) => {
@@ -113,6 +138,8 @@ const calculate_score = (gameState) => {
 
 exports.has_pair = has_pair;
 exports.has_three_of_a_kind = has_three_of_a_kind;
+exports.has_four_of_a_kind = has_four_of_a_kind;
 exports.has_straight = has_straight;
+exports.has_full_house = has_full_house;
 exports.exctract_scores = exctract_scores;
 exports.calculate_score = calculate_score;

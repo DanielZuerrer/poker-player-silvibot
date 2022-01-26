@@ -65,14 +65,16 @@ const has_pair = (gameState, onlyCommunity) => {
 
 const is_highest_card = (gameState) => {
 
-  if(gameState.round === 0) {
-    return true
-  }
+ 
   const communityValues = exctract_scores(gameState, true);
   const playerCards = gameState.players[gameState.in_action].hole_cards;
   const playerRanks = playerCards.map((card) => card.rank);
   const playerValues = playerRanks.map(mapCardValues);
   console.log({communityValues, playerValues})
+  // only play pairs in the beginning if King+
+  if(gameState.round === 0 && Math.max(...playerValues) > 12) {
+    return true
+  }
   return Math.max(...playerValues) >= Math.max(...communityValues)
 }
 

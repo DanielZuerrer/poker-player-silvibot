@@ -27,14 +27,14 @@ class Player {
     // All in if straight
     if(has_straight(gameState)) {
       console.log("found straight")
-      allIn(bet)
+      raise(gameState, bet)
       return
     }
 
     // All in if 3 of a kind
     if(has_three_of_a_kind(gameState)[0]) {
       console.log("found 3 of a kind")
-      allIn(bet)
+      raise(gameState, bet)
       return
     }
 
@@ -47,7 +47,7 @@ class Player {
 
     if(has_flush(gameState)[0]) {
       console.log("found flush")
-      allIn(bet)
+      raise(gameState, bet)
       return
     }
 
@@ -70,7 +70,7 @@ class Player {
       return
     }
 
-    if(gameState.current_buy_in > 35) {
+    if(gameState.current_buy_in > 8) {
       fold(bet)  
     }
 

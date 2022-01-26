@@ -43,8 +43,8 @@ class Player {
     const playerRanks = playerCards.map((card) => card.rank);
 
     let isGood = false;
-    goodHands.forEach(straight => {
-      if (straight.every(c => playerRanks.includes(c))){
+    goodHands.forEach(hand => {
+      if (hand.every(c => playerRanks.includes(c))){
         isGood = true;
       }
     });

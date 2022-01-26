@@ -70,11 +70,8 @@ class Player {
       return
     }
 
-    if(gameState.current_buy_in > 8) {
-      fold(bet)  
-    }
+    fold(bet)  
 
-    check(gameState, bet)
   }
 
   static showdown(gameState) {

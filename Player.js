@@ -1,5 +1,5 @@
 const { fold, check, raise, allIn } = require('./bet.js');
-const { is_highest_card, has_uniqe_pair, has_three_of_a_kind, has_four_of_a_kind, has_straight, has_full_house , has_flush, community_has_almost_flush} = require('./ScoreCalculator.js');
+const { is_highest_card, has_uniqe_pair, has_three_of_a_kind, has_four_of_a_kind, has_straight, has_full_house , has_flush, community_has_almost_flush, mapCardValues} = require('./ScoreCalculator.js');
 
 class Player {
   static get VERSION() {
@@ -7,6 +7,15 @@ class Player {
   }
 
   static betRequest(gameState, bet) {
+
+    const playerCards = gameState.players[gameState.in_action].hole_cards;
+    const playerRanks = playerCards.map((card) => card.rank);
+    const playerValues = playerRanks.map(mapCardValues);
+
+    if(Math.max(...playerValues) > 11) {
+      check(gameState, bet)
+      return
+    }
 
     console.log(gameState)
 

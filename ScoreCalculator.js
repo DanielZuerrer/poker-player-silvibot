@@ -223,3 +223,4 @@ exports.has_uniqe_pair = has_uniqe_pair;
 exports.is_highest_card = is_highest_card;
 exports.has_flush = has_flush
 exports.community_has_almost_flush = community_has_almost_flush
+exports.mapCardValues = mapCardValues

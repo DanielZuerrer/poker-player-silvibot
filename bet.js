@@ -11,7 +11,7 @@ const raise = (gameState, bet) => {
 }
 
 const allIn = (bet) => {
-  bet(100) 
+  bet(10000) 
 }
 
 exports.fold = fold;

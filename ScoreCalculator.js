@@ -66,13 +66,21 @@ const has_three_of_a_kind = (gameState) => {
     return [hasThreeOfAKind, threeOfAKindScore];
 }
 
-// const has_straight = (gameState) => {
-//     const scores = exctract_scores(gameState);
+const has_straight = (gameState) => {
+    const scores = exctract_scores(gameState);
 
-//     const counts = get_counts(scores);
+    const straights = [
+      [2,3,4,5,6],[3,4,5,6,7],[4,5,6,7,8],[5,6,7,8,9],[6,7,8,9,10],[7,8,9,10,11],[8,9,10,11,12],[9,10,11,12,13],[10,11,12,13,14]
+    ]
 
-//     return counts ===
-// }
+    let hasStraight = false;
+    straights.forEach(straight => {
+      if (straight.every(c => scores.includes(c))){
+        hasStraight = true;
+      }
+    });
+    return hasStraight;
+}
 
 const calculate_score = (gameState) => {
   const communityCards = gameState.community_cards;
@@ -103,7 +111,8 @@ const calculate_score = (gameState) => {
   return scores.reduce((acc, e) => acc + e, 0);
 };
 
-exports.has_pair = has_pair
-exports.has_three_of_a_kind = has_three_of_a_kind
+exports.has_pair = has_pair;
+exports.has_three_of_a_kind = has_three_of_a_kind;
+exports.has_straight = has_straight;
 exports.exctract_scores = exctract_scores;
 exports.calculate_score = calculate_score;

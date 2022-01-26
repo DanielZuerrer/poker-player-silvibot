@@ -7,6 +7,7 @@ const {
   has_straight,
   has_full_house,
   has_flush,
+  community_has_almost_flush
 } = require("./ScoreCalculator.js");
 
 test("has pair", () => {
@@ -506,6 +507,7 @@ test("is_highest_card", () => {
     ],
   };
   const mock2 = {
+    round: 0,
     in_action: 1,
     players: [
       {},
@@ -571,7 +573,7 @@ test("is_highest_card", () => {
     ],
   };
   expect(is_highest_card(mock)).toBe(false);
-  expect(is_highest_card(mock2)).toBe(false);
+  expect(is_highest_card(mock2)).toBe(true);
   expect(is_highest_card(passing_mock)).toBe(true);
 });
 
@@ -661,3 +663,91 @@ test("flush", () => {
   expect(has_flush(mock)[0]).toBe(false);
   expect(has_flush(passing_mock)[0]).toBe(true);
 });
+
+test("community almost flush", () => {
+    const mock = {
+      in_action: 1,
+      players: [
+        {},
+        {
+          id: 1,
+          name: "Bob",
+          status: "active",
+          version: "Default random player",
+          stack: 1590,
+          bet: 80,
+          hole_cards: [
+            {
+              rank: "7",
+              suit: "hearts",
+            },
+            {
+              rank: "8",
+              suit: "hearts",
+            },
+          ],
+        },
+        {},
+      ],
+      community_cards: [
+        {
+          rank: "2",
+          suit: "hearts",
+        },
+        {
+          rank: "3",
+          suit: "hearts",
+        },
+        {
+          rank: "4",
+          suit: "hearts",
+        },
+      ],
+    };
+    const passing_mock = {
+      in_action: 1,
+      players: [
+        {},
+        {
+          id: 1,
+          name: "Bob",
+          status: "active",
+          version: "Default random player",
+          stack: 1590,
+          bet: 80,
+          hole_cards: [
+            {
+              rank: "2",
+              suit: "hearts",
+            },
+            {
+              rank: "3",
+              suit: "diamonds",
+            },
+          ],
+        },
+        {},
+      ],
+      community_cards: [
+        {
+          rank: "7",
+          suit: "hearts",
+        },
+        {
+          rank: "6",
+          suit: "hearts",
+        },
+        {
+          rank: "5",
+          suit: "hearts",
+        },
+        {
+          rank: "4",
+          suit: "hearts",
+        }
+      ],
+    };
+    expect(community_has_almost_flush(mock)[0]).toBe(false);
+    expect(community_has_almost_flush(passing_mock)[0]).toBe(true);
+  });
+  

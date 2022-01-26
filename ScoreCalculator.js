@@ -163,6 +163,28 @@ const calculate_score = (gameState) => {
   return scores.reduce((acc, e) => acc + e, 0);
 };
 
+const community_has_almost_flush = (gameState) => {
+  const communityCards = gameState.community_cards;
+
+  const suits = communityCards.map((card) => card.suit);
+
+  const counts = get_counts(suits)
+
+  console.log(counts)
+
+  let hasFlush = false;
+  let flushSuit = null;
+
+  Object.keys(counts).forEach(suit => {
+      if (counts[suit] >= 4) {
+        hasFlush = true;
+        flushSuit = suit;
+      }
+
+  });
+  return [hasFlush, flushSuit];
+}
+
 const has_flush = (gameState) => {
   const communityCards = gameState.community_cards;
   const playerCards = gameState.players[gameState.in_action].hole_cards;
@@ -198,3 +220,4 @@ exports.calculate_score = calculate_score;
 exports.has_uniqe_pair = has_uniqe_pair;
 exports.is_highest_card = is_highest_card;
 exports.has_flush = has_flush
+exports.community_has_almost_flush = community_has_almost_flush

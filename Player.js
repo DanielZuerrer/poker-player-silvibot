@@ -31,15 +31,20 @@ class Player {
     const hasOnePairWithDealCards = communityCardValues && playerCardValues.some(cardValue => communityCardValues.includes(cardValue))
     const hasOnePair = playerCards[0].rank === playerCards[1].rank
 
+     // All in if one pair
+     if (hasOnePair || hasOnePairWithDealCards) {
+      allIn(bet)
+      return
+    }
+
+    if(gameState.round === 0 && gameState.current_buy_in > 50) {
+      fold(bet);
+      return
+    }
+
     // All in if one high card
     if (rankA || rankK) {
       check(gameState, bet);
-      return
-    }
-    
-    // All in if one pair
-    if (hasOnePair || hasOnePairWithDealCards) {
-      allIn(bet)
       return
     }
 

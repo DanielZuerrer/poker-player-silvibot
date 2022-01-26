@@ -5,7 +5,8 @@ class Player {
 
   static betRequest(gameState, bet) {
 
-    const playerCards = gameState.players[in_action].hole_cards
+    const communityCards = gameState.community_cards
+    const playerCards = gameState.players["in_action"].hole_cards
 
     const rankA = playerCards.filter((card) => card.rank === "A")
     const rankK = playerCards.filter((card) => card.rank === "K")

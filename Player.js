@@ -5,8 +5,14 @@ class Player {
 
   static betRequest(gameState, bet) {
 
+    console.log(gameState)
+
     const communityCards = gameState.community_cards
     const playerCards = gameState.players[gameState.in_action].hole_cards
+
+    const communityCardValues = communityCards.map(card => card.rank)
+    const playerCardValues = playerCards.map(card => card.rank)
+
 
     const rankA = playerCards.filter((card) => card.rank === "A")
     const rankK = playerCards.filter((card) => card.rank === "K")
@@ -22,12 +28,17 @@ class Player {
     const rank3 = playerCards.filter((card) => card.rank === "3")
     const rank2 = playerCards.filter((card) => card.rank === "2")
 
-    if (rankA.length) {
+    const hasOnePairWithDealCards = playerCardValues.some(cardValue => communityCardValues.includes(cardValue))
+    const hasOnePair = playerCards[0].rank === playerCards[1].rank
+
+    // All in if rank A or K
+    if (rankA || rankK) {
       bet(10000)
       return
     }
-
-    if (playerCards[0].rank === playerCards[1].rank) {
+    
+    // All in if 2 cards with same rank
+    if (hasOnePair || hasOnePairWithDealCards) {
       bet(10000)
       return
     }

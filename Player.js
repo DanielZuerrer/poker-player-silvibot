@@ -1,5 +1,5 @@
 const { fold, check, raise, allIn } = require('./bet.js');
-const { has_pair,has_uniqe_pair, has_three_of_a_kind, has_four_of_a_kind, has_straight, has_full_house , has_flush} = require('./ScoreCalculator.js');
+const { is_highest_card, has_uniqe_pair, has_three_of_a_kind, has_four_of_a_kind, has_straight, has_full_house , has_flush} = require('./ScoreCalculator.js');
 
 class Player {
   static get VERSION() {
@@ -54,6 +54,12 @@ class Player {
      // Raise if one pair
      if (has_uniqe_pair(gameState)[0]) {
       console.log("found pair")
+
+      // Check if not highest pair
+      // if(!is_highest_card(gameState)) {
+
+      // }
+
       // Check if low pair or stack too high
       if(has_uniqe_pair(gameState)[1] < 10 || gameState.current_buy_in > gameState.players[gameState.in_action].stack/3) { 
         check(gameState, bet)

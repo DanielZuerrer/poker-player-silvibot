@@ -10,23 +10,25 @@ const exctract_scores = (gameState, onlyCommunity = false) => {
 
   const ranks = fullHand.map((card) => card.rank);
 
-  const scores = ranks.map((rank) => {
-    switch (rank) {
-      case "A":
-        return 14;
-      case "K":
-        return 13;
-      case "Q":
-        return 12;
-      case "J":
-        return 11;
-      default:
-        return parseInt(rank);
-    }
-  });
+  const scores = ranks.map(mapCardValues);
 
   return scores;
 };
+
+const mapCardValues = (rank) => {
+  switch (rank) {
+    case "A":
+      return 14;
+    case "K":
+      return 13;
+    case "Q":
+      return 12;
+    case "J":
+      return 11;
+    default:
+      return parseInt(rank);
+  }
+}
 
 const get_counts = (scores) => {
   const counts = {};
@@ -42,7 +44,6 @@ const has_uniqe_pair = (gameState) => {
   } else {
     return [false, null]
   }
-
 }
 
 const has_pair = (gameState, onlyCommunity) => {
@@ -58,14 +59,17 @@ const has_pair = (gameState, onlyCommunity) => {
             hasPair = true;
             pairScore = parseInt(score);
         }
-
     });
     return [hasPair, pairScore];
 }
 
-const is_highest_card = (gameState, cardValue) => {
-  const scores = exctract_scores(gameState, true);
-  return cardValue === Math.max([...scores])
+const is_highest_card = (gameState) => {
+  const communityValues = exctract_scores(gameState, true);
+  const playerCards = gameState.players[gameState.in_action].hole_cards;
+  const playerRanks = playerCards.map((card) => card.rank);
+  const playerValues = playerRanks.map(mapCardValues);
+  console.log({communityValues, playerValues})
+  return Math.max(...playerValues) >= Math.max(...communityValues)
 }
 
 const has_three_of_a_kind = (gameState) => {

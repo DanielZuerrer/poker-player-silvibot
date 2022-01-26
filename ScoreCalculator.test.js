@@ -1,6 +1,6 @@
 const {
   has_pair,
-  is_highest_pair,
+  is_highest_card,
   has_uniqe_pair,
   has_three_of_a_kind,
   has_four_of_a_kind,
@@ -469,7 +469,7 @@ test("has unique pair", () => {
   expect(has_uniqe_pair(passing_mock_2)[1]).toBe(7);
 });
 
-test("is_highest_pair", () => {
+test("is_highest_card", () => {
   const mock = {
     in_action: 1,
     players: [
@@ -544,8 +544,8 @@ test("is_highest_pair", () => {
       },
     ],
   };
-  expect(is_highest_pair(mock)[0]).toBe(false);
-  expect(is_highest_pair(passing_mock)[0]).toBe(true);
+  expect(is_highest_card(mock)).toBe(false);
+  expect(is_highest_card(passing_mock)).toBe(true);
 });
 
 test("flush", () => {

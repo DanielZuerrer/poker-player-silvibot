@@ -55,6 +55,10 @@ class Player {
      if (has_uniqe_pair(gameState)[0] && gameState.round <= 3) {
       console.log("found pair")
 
+      if(gameState.round <= 1 && has_uniqe_pair(gameState)[1] <= 13) {
+        fold(bet)  
+      }
+
       // Check if not highest pair
       if(!is_highest_card(gameState) && gameState.current_buy_in > 50) {
         fold(bet)       
@@ -70,8 +74,11 @@ class Player {
       return
     }
 
-    fold(bet)  
+    if(gameState.current_buy_in > 8) {
+      fold(bet)  
+    }
 
+    check(gameState, bet)
   }
 
   static showdown(gameState) {

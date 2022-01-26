@@ -7,6 +7,9 @@ class Player {
   }
 
   static betRequest(gameState, bet) {
+
+    console.log(gameState)
+
     const player = gameState.players[gameState.in_action]
 
     const communityCards = gameState.community_cards
@@ -36,7 +39,7 @@ class Player {
     }
 
      // All in if one pair
-     if (has_pair()[0]) {
+     if (has_pair(gameState)[0]) {
       allIn(bet)
       return
     }

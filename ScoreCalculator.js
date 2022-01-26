@@ -24,19 +24,24 @@ const exctract_scores = (gameState) => {
   return scores;
 };
 
+const get_counts = (scores) => {
+  const counts = {};
+  scores.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+  return counts
+}
+
 const has_pair = (gameState) => {
     const scores = exctract_scores(gameState);
 
-    const counts = {};
-    scores.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+    const counts = get_counts(scores)
 
     let hasPair = false;
     let pairScore = null;
     
-    Object.entries(counts).forEach(count => {
-        if (count[1] === 2) {
+    Object.keys(counts).forEach(score => {
+        if (counts[score] === 2) {
             hasPair = true;
-            pairScore = parseInt(count[0]);
+            pairScore = parseInt(score);
         }
 
     });
@@ -46,21 +51,28 @@ const has_pair = (gameState) => {
 const has_three_of_a_kind = (gameState) => {
     const scores = exctract_scores(gameState);
 
-    const counts = {};
-    scores.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+    const counts = get_counts(scores)
 
     let hasThreeOfAKind = false;
     let threeOfAKindScore = null;
     
-    Object.entries(counts).forEach(count => {
-        if (count[1] === 3) {
+    Object.keys(counts).forEach(score => {
+        if (counts[score] === 3) {
             hasThreeOfAKind = true;
-            threeOfAKindScore = parseInt(count[0]);
+            threeOfAKindScore = parseInt(score);
         }
 
     });
     return [hasThreeOfAKind, threeOfAKindScore];
 }
+
+// const has_straight = (gameState) => {
+//     const scores = exctract_scores(gameState);
+
+//     const counts = get_counts(scores);
+
+//     return counts ===
+// }
 
 const calculate_score = (gameState) => {
   const communityCards = gameState.community_cards;

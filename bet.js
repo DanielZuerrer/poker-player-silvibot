@@ -1,4 +1,6 @@
-const fold = (bet) => bet(0)
+const fold = (bet) => {
+  bet(0)
+}
 
 const check = (gameState, bet) => {
   bet(gameState.current_buy_in - gameState.players[gameState.in_action].bet)
@@ -9,7 +11,7 @@ const raise = (gameState, bet) => {
 }
 
 const allIn = (bet) => {
-  bet(10000) 
+  bet(100) 
 }
 
 exports.fold = fold;

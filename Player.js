@@ -1,12 +1,11 @@
+const { fold, check, raise, allIn } = require('./bet.js');
+
 class Player {
   static get VERSION() {
     return '0.1';
   }
 
   static betRequest(gameState, bet) {
-
-    console.log(gameState)
-
     const player = gameState.players[gameState.in_action]
 
     const communityCards = gameState.community_cards
@@ -34,17 +33,17 @@ class Player {
 
     // All in if one high card
     if (rankA || rankK) {
-      bet(10000)
+      check(gameState, bet);
       return
     }
     
     // All in if one pair
     if (hasOnePair) {
-      bet(10000)
+      allIn(bet)
       return
     }
 
-    bet(0)
+    fold(bet)
   }
 
   static showdown(gameState) {

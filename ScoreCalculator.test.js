@@ -356,9 +356,10 @@ test('four of a kind', () => {
             },
             {
                 "rank": "7",
-                "suit": "clubs"
+                "suit": "diamond"
             }
         ]
     }
     expect(has_four_of_a_kind(mock)[0]).toBe(false)
+    expect(has_four_of_a_kind(passing_mock)[0]).toBe(true)
 })

@@ -11,11 +11,11 @@ class Player {
     console.log(gameState)
 
     // Random bluff
-    if (Math.random() < 0.2) { // 20% probability of getting true
-      console.log("random bluff")
-      allIn(bet)
-      return
-    }
+    // if (Math.random() < 0.2) { // 20% probability of getting true
+    //   console.log("random bluff")
+    //   allIn(bet)
+    //   return
+    // }
 
     // All in if full house
     if(has_full_house(gameState)) {

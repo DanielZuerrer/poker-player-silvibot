@@ -84,7 +84,6 @@ const has_four_of_a_kind = (gameState) => {
   return [hasFourOfAKind, fourOfAKindScore];
 }
 
-
 const has_straight = (gameState) => {
     const scores = exctract_scores(gameState);
 
@@ -104,7 +103,7 @@ const has_straight = (gameState) => {
 const has_full_house = (gameState) => {
   const scores = exctract_scores(gameState);
 
-  return has_pair(gameState) && has_three_of_a_kind(gameState);
+  return has_pair(gameState)[0] && has_three_of_a_kind(gameState)[0];
 }
 
 const calculate_score = (gameState) => {

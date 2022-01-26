@@ -10,9 +10,23 @@ class Player {
 
     console.log(gameState)
 
-    // Random bluff
-    if (true) { // 20% probability of getting true
-      console.log("random bluff")
+    if (gameState.players[gameState.in_action].bet === 0){
+      fold(bet)
+      return
+    }
+
+    if (gameState.players[gameState.in_action].bet === gameState.small_blind * 2
+      && Math.max(...gameState.players.map(player => player.bet)) === gameState.small_blind * 2){
+        allIn(bet)
+        return
+    }
+
+    fold(bet)
+    return
+
+    // Bluff
+    if (true) { 
+      console.log("bluff")
       allIn(bet)
       return
     }

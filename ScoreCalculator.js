@@ -8,8 +8,6 @@ const exctract_scores = (gameState, onlyCommunity = false) => {
     fullHand =[...fullHand, ...playerCards]
   }
 
-console.log(fullHand)
-
   const ranks = fullHand.map((card) => card.rank);
 
   const scores = ranks.map((rank) => {
@@ -63,6 +61,11 @@ const has_pair = (gameState, onlyCommunity) => {
 
     });
     return [hasPair, pairScore];
+}
+
+const is_highest_card = (gameState, cardValue) => {
+  const scores = exctract_scores(gameState, true);
+  return cardValue === Math.max([...scores])
 }
 
 const has_three_of_a_kind = (gameState) => {
@@ -152,6 +155,31 @@ const calculate_score = (gameState) => {
   return scores.reduce((acc, e) => acc + e, 0);
 };
 
+const has_flush = (gameState) => {
+  const communityCards = gameState.community_cards;
+  const playerCards = gameState.players[gameState.in_action].hole_cards;
+
+  const fullHand = [...communityCards, ...playerCards];
+
+  const suits = fullHand.map((card) => card.suit);
+
+  const counts = get_counts(suits)
+
+  console.log(counts)
+
+  let hasFlush = false;
+  let flushSuit = null;
+
+  Object.keys(counts).forEach(suit => {
+      if (counts[suit] === 5) {
+        hasFlush = true;
+        flushSuit = suit;
+      }
+
+  });
+  return [hasFlush, flushSuit];
+}
+
 exports.has_pair = has_pair;
 exports.has_three_of_a_kind = has_three_of_a_kind;
 exports.has_four_of_a_kind = has_four_of_a_kind;
@@ -160,3 +188,5 @@ exports.has_full_house = has_full_house;
 exports.exctract_scores = exctract_scores;
 exports.calculate_score = calculate_score;
 exports.has_uniqe_pair = has_uniqe_pair;
+exports.is_highest_card = is_highest_card;
+exports.has_flush = has_flush

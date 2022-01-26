@@ -1,5 +1,5 @@
 const { fold, check, raise, allIn } = require('./bet.js');
-const { has_pair,has_uniqe_pair, has_three_of_a_kind, has_four_of_a_kind, has_straight, has_full_house } = require('./ScoreCalculator.js');
+const { has_pair,has_uniqe_pair, has_three_of_a_kind, has_four_of_a_kind, has_straight, has_full_house , has_flush} = require('./ScoreCalculator.js');
 
 class Player {
   static get VERSION() {
@@ -41,6 +41,12 @@ class Player {
     // All in if 4 of a kind
     if(has_four_of_a_kind(gameState)[0]) {
       console.log("found 4 of a kind")
+      allIn(bet)
+      return
+    }
+
+    if(has_flush(gameState)[0]) {
+      console.log("found flush")
       allIn(bet)
       return
     }

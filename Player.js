@@ -56,9 +56,9 @@ class Player {
       console.log("found pair")
 
       // Check if not highest pair
-      // if(!is_highest_card(gameState)) {
-
-      // }
+      if(!is_highest_card(gameState) && gameState.current_buy_in > 50) {
+        fold(bet)       
+      }
 
       // Check if low pair or stack too high
       if(has_uniqe_pair(gameState)[1] < 10 || gameState.current_buy_in > gameState.players[gameState.in_action].stack/3) { 
